@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng Dẫn Cài Đặt Audiblez Trên Windows</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --code-bg: #1e1e1e;
+        }
+
+        /* Background thiên nhiên tĩnh lặng */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.94); /* Nền trắng hơi trong suốt để nổi bật trên nền thiên nhiên */
+            backdrop-filter: blur(5px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            margin-top: 35px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .notice {
+            background-color: rgba(255, 243, 205, 0.9);
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+
+        .step-box {
+            background: rgba(249, 251, 252, 0.9);
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+          /* External quick links (GitHub / PDF → EPUB) */
+        .external-links {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 22px;
+        }
+        .ext-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            transition: transform .14s ease, box-shadow .14s ease;
+            font-size: 14px;
+        }
+        .ext-btn.github { background: linear-gradient(135deg,#24292e,#57606a); }
+        .ext-btn.convert { background: linear-gradient(135deg,#f39c12,#e67e22); }
+        .ext-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,0.16); }
+
+        .step-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-number {
+            background-color: var(--accent-color);
+            color: white;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 14px;
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            font-size: 15px;
+            overflow-x: auto;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .code-block::after {
+            content: "Copy lệnh này";
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 11px;
+            color: #888;
+            background: #333;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .explanation {
+            font-size: 14px;
+            color: #555;
+            font-style: italic;
+            margin-top: 5px;
+        }
+         /* YouTube thumbnail + embed styles */
+        .video-wrapper {
+            width: 100%;
+            max-width: 760px;
+            margin: 18px auto;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            background: #000;
+        }
+        .youtube-thumb {
+            display: block;
+            width: 100%;
+            height: auto;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        .play-btn {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.6);
+            border: none;
+            color: #fff;
+            font-size: 40px;
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform .16s ease, box-shadow .16s ease;
+        }
+        .play-btn:hover { transform: translate(-50%, -50%) scale(1.06); box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+
+        .responsive-iframe {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 */
+            position: relative;
+        }
+        .responsive-iframe iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .success-box {
+            background-color: rgba(212, 237, 218, 0.9);
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 30px;
+        }
+
+        /* Hình minh hoạ */
+        .illustration {
+            display: block;
+            width: 100%;
+            max-width: 760px;
+            height: auto;
+            border-radius: 10px;
+            margin: 12px auto 20px auto;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+
+        /* Video hướng dẫn */
+        .guide-video {
+            display: block;
+            width: 100%;
+            max-width: 760px;
+            margin: 18px auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🎙️ Hướng Dẫn Cài Đặt Audiblez Dành Cho Người Mới</h1>
+        
+        <img src="anhminhhoa_1.jpg" alt="Hình minh họa hướng dẫn" class="illustration" onerror="this.style.display='none'">
+
+        <p><strong>Audiblez</strong> là một phần mềm tuyệt vời giúp bạn chuyển đổi các file sách điện tử (e-book đuôi <code>.epub</code>) thành sách nói (audiobook đuôi <code>.m4b</code>) với giọng đọc AI cực kỳ tự nhiên. Hướng dẫn này được thiết kế theo từng bước rất chậm rãi, chỉ dành riêng cho máy tính <strong>Windows</strong>.</p>
+
+                <a class="video-wrapper" href="https://youtu.be/TpIlAOsyIAc" target="_blank" rel="noopener noreferrer" aria-label="Mở video hướng dẫn trên YouTube">
+            <img class="youtube-thumb" src="https://img.youtube.com/vi/TpIlAOsyIAc/maxresdefault.jpg"
+                 alt="Thumbnail video hướng dẫn Audiblez" loading="lazy">
+            <div class="play-btn" aria-hidden="true">▶</div>
+        </a>
+
+ 
+
+        <div class="notice">
+            <strong>⚠️ Lời khuyên trước khi bắt đầu:</strong> Bạn không cần phải hiểu các dòng lệnh này làm gì. Việc của bạn chỉ đơn giản là <strong>Copy (Sao chép)</strong> lệnh ở trong khung đen, dán vào màn hình máy tính và nhấn phím <strong>Enter</strong>.
+        </div>
+
+        <h2>Phần 1: Chuẩn bị bắt buộc</h2>
+        <p>Máy tính của bạn cần có một phần mềm nền tảng mang tên <strong>Python</strong> để chạy được Audiblez. Nếu máy bạn chưa có, hãy làm như sau:</p>
+        <ol>
+            <li>Truy cập trang web: <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads</a> và tải bản Python mới nhất cho Windows.</li>
+            <li>Khi mở file cài đặt vừa tải về, <strong>ĐIỀU QUAN TRỌNG NHẤT:</strong> Bạn phải tích chọn vào ô vuông <strong>"Add Python.exe to PATH"</strong> ở dưới cùng màn hình cài đặt.</li>
+            <li>Nhấn <strong>Install Now</strong> và đợi máy tính cài xong.</li>
+        </ol>
+
+        <h2>Phần 2: Các bước cài đặt Audiblez</h2>
+
+        <div class="step-box">
+            <div class="step-title"><span class="step-number">1</span> Mở cửa sổ lệnh Windows Terminal</div>
+            <p>Nhấn phím <strong>Windows</strong> trên bàn phím (phím có hình 4 ô vuông), gõ chữ <code>powershell</code> và nhấn Enter để mở màn hình xanh dương (hoặc đen) gõ lệnh.</p>
+        </div>
+
+        <div class="step-box">
+            <div class="step-title"><span class="step-number">2</span> Tạo một thư mục chứa phần mềm</div>
+            <p>Hãy copy dòng lệnh dưới đây, dán vào cửa sổ Terminal và nhấn Enter:</p>
+            <div class="code-block">mkdir audiblez</div>
+            <div class="explanation">Lệnh này sẽ tạo ra một thư mục có tên là "audiblez" trên máy tính của bạn.</div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-title"><span class="step-number">3</span> Đi vào thư mục vừa tạo</div>
+            <p>Tiếp tục copy và dán lệnh sau, rồi nhấn Enter:</p>
+            <div class="code-block">cd audiblez</div>
+            <div class="explanation">Lệnh này báo cho máy tính biết bạn chuẩn bị làm việc bên trong thư mục đó.</div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-title"><span class="step-number">4</span> Tạo "Môi trường ảo"</div>
+            <p>Để phần mềm hoạt động ổn định và không ảnh hưởng tới máy tính, ta tạo một không gian riêng cho nó:</p>
+            <div class="code-block">python -m venv venv</div>
+            <div class="explanation">Sau khi nhấn Enter, hãy đợi khoảng 5-10 giây để máy tính xử lý. Không có thông báo lỗi hiện ra nghĩa là đã thành công.</div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-title"><span class="step-number">5</span> Kích hoạt Môi trường ảo</div>
+            <p>Bật không gian riêng bạn vừa tạo lên bằng lệnh:</p>
+            <div class="code-block">.\venv\Scripts\Activate.ps1</div>
+            <div class="explanation">Nếu thành công, bạn sẽ thấy có chữ <strong>(venv)</strong> hiện ra ở đầu dòng lệnh tiếp theo.</div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-title"><span class="step-number">6</span> Tải và cài đặt phần mềm Audiblez</div>
+            <p>Bây giờ là bước quan trọng nhất. Chạy lệnh sau và ngồi đợi máy tính tự động tải phần mềm về (cần có kết nối mạng):</p>
+            <div class="code-block">pip install audiblez pillow wxpython</div>
+            <div class="explanation">Quá trình này có thể mất từ 1 đến vài phút tùy tốc độ mạng. Sẽ có rất nhiều dòng chữ chạy trên màn hình, cứ để nó chạy tự nhiên.</div>
+        </div>
+
+        <div class="step-box">
+            <div class="step-title"><span class="step-number">7</span> Mở giao diện phần mềm!</div>
+            <p>Sau khi các dòng chữ ngừng chạy, xin chúc mừng, bạn đã cài xong! Để mở giao diện trực quan dễ sử dụng, hãy gõ lệnh cuối cùng:</p>
+            <div class="code-block">audiblez-ui</div>
+            <div class="explanation">Một cửa sổ đồ họa (GUI) sẽ hiện lên để bạn có thể chọn file Epub và bắt đầu tạo sách nói.</div>
+        </div>
+
+        <div class="success-box">
+            <strong>💡 Lưu ý cho những lần sử dụng sau:</strong><br>
+            Bạn không cần phải cài đặt lại (bỏ qua bước 2, 4, 6). Lần sau muốn dùng phần mềm, bạn chỉ cần mở PowerShell lên và gõ lần lượt 3 lệnh:
+            <br>1. <code>cd audiblez</code> (vào thư mục)
+            <br>2. <code>.\venv\Scripts\Activate.ps1</code> (bật môi trường)
+            <br>3. <code>audiblez-ui</code> (mở giao diện)
+        </div>
+        <div class="external-links" aria-label="Liên kết hữu ích">
+            <a class="ext-btn github" href="https://github.com/santinic/audiblez" target="_blank" rel="noopener noreferrer" title="Audiblez trên GitHub">
+                🧰 GitHub Audiblez
+            </a>
+
+            <a class="ext-btn convert" href="https://convertio.co/vn/pdf-epub/" target="_blank" rel="noopener noreferrer" title="Chuyển PDF sang EPUB">
+                📄→📚 Convert PDF → EPUB
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
